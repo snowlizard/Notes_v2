@@ -1,9 +1,9 @@
 /* Custom color theme properties */
 :root {
-  --f7-theme-color: #007aff;
-  --f7-theme-color-rgb: 0, 122, 255;
-  --f7-theme-color-shade: #0066d6;
-  --f7-theme-color-tint: #298fff;
+  --f7-theme-color: #e00303;
+  --f7-theme-color-rgb: 224, 3, 3;
+  --f7-theme-color-shade: #b80202;
+  --f7-theme-color-tint: #fc1010;
 }
 
 /* Invert navigation bars to fill style */
@@ -54,3 +54,6 @@
 }
 
 /* Your app custom styles here */
+.app-title{
+  font-size: 1.8em;
+}
