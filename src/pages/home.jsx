@@ -1,4 +1,6 @@
 import React from 'react';
+import myApp from '../js/firebase';
+import { getAuth } from 'firebase/auth';
 import {
   Appbar,
   Button,
@@ -6,6 +8,8 @@ import {
   TextEditor,
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
+
+const auth = getAuth(myApp);
 
 const HomePage = () => (
   <Page>
