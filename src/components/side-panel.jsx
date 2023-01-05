@@ -16,7 +16,9 @@ const SidePanel = () => (
         <div className='left'>
             <Button
                 small round
-                raised>
+                raised
+                fill color='white'
+                style={{color:'red'}}>
                 Add File
             </Button>
         </div>
