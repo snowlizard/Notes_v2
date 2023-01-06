@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-    apiKey: import.meta.env.FIREBASE_API_KEY,
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "portfolio-3e5da.firebaseapp.com",
     databaseURL: "https://portfolio-3e5da-default-rtdb.firebaseio.com",
     projectId: "portfolio-3e5da",

@@ -9,7 +9,7 @@ const BUILD_DIR = path.resolve(__dirname, './www',);
 
 export default defineConfig(({command, mode}) => {
 
-  const env = loadEnv(mode, process.cwd());
+  const env = loadEnv(mode, process.cwd(), './');
   
   return {
     define: {
