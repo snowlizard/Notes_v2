@@ -1,5 +1,6 @@
 import React from 'react';
 import myApp from '../js/firebase';
+import store from '../js/store';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {
   Appbar,
@@ -10,6 +11,7 @@ import {
   Panel,
   Searchbar,
   theme,
+  useStore
 } from 'framework7-react';
 
 const auth = getAuth(myApp);
@@ -77,6 +79,8 @@ const signIn = () => {
       const email = error.customData.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
     });
+
+    store.dispatch('setLogin');
   }
 
 export default SidePanel;

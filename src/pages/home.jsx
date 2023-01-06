@@ -4,6 +4,7 @@ import {
   Button,
   Page,
   TextEditor,
+  useStore
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
 
@@ -18,6 +19,11 @@ const HomePage = () => (
     </Appbar>
     
     <SidePanel />
+
+    {
+      useStore('login') ? <p>Logged in</p> :
+      <p>please login</p>
+    }
 
     <TextEditor placeholder="Type here..."
       mode="popover"
