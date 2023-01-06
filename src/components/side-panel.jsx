@@ -15,13 +15,21 @@ const SidePanel = () => (
     <Appbar>
         <div className='left'>
             <Button
-                small round
+                small
                 raised
                 fill color='white'
                 style={{color:'red'}}>
                 Add File
             </Button>
+            <Button
+                small
+                raised
+                fill color='white'
+                style={{color:'red', 'marginLeft': '4px'}}>
+                Login
+            </Button>
         </div>
+
         <div className='right'>
             <Link
             searchbarEnable=".searchbar-bar"
