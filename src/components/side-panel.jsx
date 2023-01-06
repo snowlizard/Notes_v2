@@ -1,4 +1,6 @@
 import React from 'react';
+import myApp from '../js/firebase';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {
   Appbar,
   Button,
@@ -9,6 +11,9 @@ import {
   Searchbar,
   theme,
 } from 'framework7-react';
+
+const auth = getAuth(myApp);
+const provider = new GoogleAuthProvider();
 
 const SidePanel = () => (
 <Panel left>
@@ -25,7 +30,8 @@ const SidePanel = () => (
                 small
                 raised
                 fill color='white'
-                style={{color:'red', 'marginLeft': '4px'}}>
+                style={{color:'red', 'marginLeft': '4px'}}
+                onClick={signIn}>
                 Login
             </Button>
         </div>
@@ -58,5 +64,19 @@ const SidePanel = () => (
     </List>
 </Panel>
 );
+
+const signIn = () => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    });
+  }
 
 export default SidePanel;
