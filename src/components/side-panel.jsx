@@ -19,6 +19,7 @@ const provider = new GoogleAuthProvider();
 
 const SidePanel = () => {
     const loggedIn = useStore('login');
+    const notes    = useStore('notes');
 
     const signIn = () => {
         if (loggedIn) {
@@ -39,6 +40,10 @@ const SidePanel = () => {
             const credential = GoogleAuthProvider.credentialFromError(error);
             })
         }
+    };
+
+    const setCurrentNote = (index) => {
+        store.dispatch('setCurrNote', index);
     };
 
     return (
@@ -84,9 +89,13 @@ const SidePanel = () => {
             </List>
 
             <List className="notes-list searchbar-found">
-                <ListItem title="Acura"></ListItem>
-                <ListItem title="Audi"></ListItem>
-                <ListItem title="BMW"></ListItem>
+                {   
+                    notes.map( note => (
+                        <Button text={note.title}
+                            key={note.title}
+                            onClick={ () => setCurrentNote(note.index) }/>
+                    ))
+                }
             </List>
         </Panel>
     );

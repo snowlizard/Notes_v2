@@ -8,28 +8,33 @@ import {
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
 
-const HomePage = () => (
-  <Page>
-    <Appbar>
-      <div className="left">
-        <Button small panelToggle="left" className="display-flex" iconF7="bars" />
-      </div>
-      <div className='app-title'>Notes v2</div>
-      <div className='right' />
-    </Appbar>
-    
-    <SidePanel />
+const HomePage = () => {
+  const currentNote = useStore('currNote');
+  const loggedIn    = useStore('login');
 
-    {
-      useStore('login') ? <p>Logged in</p> :
-      <p>please login</p>
-    }
+  return (
+    <Page>
+      <Appbar>
+        <div className="left">
+          <Button small panelToggle="left" className="display-flex" iconF7="bars" />
+        </div>
+        <div className='app-title'>Notes v2</div>
+        <div className='right' />
+      </Appbar>
 
-    <TextEditor placeholder="Type here..."
-      mode="popover"
-      >      
-    </TextEditor>
-  </Page>
-);
+      <SidePanel />
 
+      {
+        loggedIn ? <p>Logged in</p> :
+        <p>please login</p>
+      }
+
+      <TextEditor placeholder="Type here..."
+        value={currentNote.body}
+        mode="popover"
+        >      
+      </TextEditor>
+    </Page>
+  );
+}
 export default HomePage;
