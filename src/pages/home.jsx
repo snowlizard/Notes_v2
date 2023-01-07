@@ -19,7 +19,9 @@ const HomePage = () => {
           <Button small panelToggle="left" className="display-flex" iconF7="bars" />
         </div>
         <div className='app-title'>Notes v2</div>
-        <div className='right' />
+        <div className='right'>
+          <Button small iconF7='floppy_disk' />
+        </div>
       </Appbar>
 
       <SidePanel />
