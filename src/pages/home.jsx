@@ -20,7 +20,14 @@ const HomePage = () => {
         </div>
         <div className='app-title'>Notes v2</div>
         <div className='right'>
-          <Button small iconF7='floppy_disk' />
+          <Button 
+            className='btn-bar'
+            small raised round 
+            iconMaterial='save_alt'/>
+          <Button 
+            className='btn-bar'
+            small raised round 
+            iconMaterial='help_outline'/>
         </div>
       </Appbar>
 

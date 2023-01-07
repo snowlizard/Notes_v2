@@ -23,6 +23,7 @@ const store = createStore({
     login({state}) {
       return state.logged_in;
     },
+
   },
 
   actions: {
@@ -36,7 +37,8 @@ const store = createStore({
 
     setLogin({state}) {
       state.logged_in = !state.logged_in;
-    }
+    },
+
   },
 })
 export default store;

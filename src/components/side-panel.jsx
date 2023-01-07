@@ -51,20 +51,22 @@ const SidePanel = () => {
             <Appbar>
                 <div className='left'>
                     <Button
-                        small
-                        raised
-                        fill color='white'
-                        style={{color:'red'}}>
-                        Add File
-                    </Button>
+                        className='btn-bar'
+                        small raised round
+                        iconMaterial='note_add_outlined_icon'/>
+                {
+                    !loggedIn ? 
                     <Button
-                        small
-                        raised
-                        fill color='white'
-                        style={{color:'red', 'marginLeft': '4px'}}
-                        onClick={signIn}>
-                        { loggedIn ? 'Logout' : 'Login' }
-                    </Button>
+                    className='btn-bar'
+                    small raised round
+                    iconMaterial='login'
+                    onClick={ signIn }/> :
+                    <Button
+                    className='btn-bar'
+                    small raised round
+                    iconMaterial='logout'
+                    onClick={ signIn }/>
+                }
                 </div>
 
                 <div className='right'>
