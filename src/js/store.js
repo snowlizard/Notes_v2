@@ -9,6 +9,7 @@ const store = createStore({
     ],
     currNote: {},
     login: false,
+    token: '',
   },
 
   getters: {
@@ -23,6 +24,10 @@ const store = createStore({
     login({state}) {
       return state.logged_in;
     },
+
+    token({state}) {
+      return state.token;
+    }
 
   },
 
@@ -43,6 +48,9 @@ const store = createStore({
       state.logged_in = !state.logged_in;
     },
 
+    setToken({state}, token) {
+      state.token = token;
+    },
   },
 })
 export default store;
