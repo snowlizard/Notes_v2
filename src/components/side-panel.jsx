@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import myApp from '../js/firebase';
+import { getNotes } from '../js/firebase';
 import store from '../js/store';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import {
@@ -32,6 +33,7 @@ const SidePanel = () => {
         if (loggedIn) {
             signOut(auth).then( () => {
                 store.dispatch('setLogin');
+                getNotes();
             });
         } else {
             signInWithPopup(auth, provider)

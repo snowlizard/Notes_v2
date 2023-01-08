@@ -29,6 +29,10 @@ const store = createStore({
   },
 
   actions: {
+    initNotes({state}, notes) {
+      state.notes = notes;
+    },
+
     addNote({ state }, note) {
       state.notes = [...state.notes, note];
     },

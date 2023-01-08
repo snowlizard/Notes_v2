@@ -27,8 +27,9 @@ export const getNotes = () => {
     const getRef = ref(database, token + '_notes');
 
     onValue(getRef, (snapshot) => {
-        snapshot.val() !== null ? store.dispatch('notes', snapshot.val())
-        : store.dispatch('notes', []);
+        if(snapshot.val !== null)
+            store.dispatch('initNotes', snapshot.val());
+
     }, { onlyOnce: true });
 }
 

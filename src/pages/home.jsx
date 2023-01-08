@@ -1,4 +1,5 @@
 import React from 'react';
+import { updateDatabase } from '../js/firebase';
 import { useState } from 'react';
 import {
   Appbar,
@@ -21,6 +22,9 @@ const HomePage = () => {
       currentNote.body = body;
       store.dispatch('updateNote', currentNote);
       setDate(new Date().toLocaleString());
+
+      // update database;
+      updateDatabase();
     }
   };
 
