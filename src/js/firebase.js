@@ -28,7 +28,7 @@ export const getNotes = () => {
 
     onValue(getRef, (snapshot) => {
         snapshot.val() !== null ? store.dispatch('notes', snapshot.val())
-        : store.dispatch('notes', {});
+        : store.dispatch('notes', []);
     }, { onlyOnce: true });
 }
 

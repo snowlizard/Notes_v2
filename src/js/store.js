@@ -3,10 +3,7 @@ import { createStore } from 'framework7/lite';
 
 const store = createStore({
   state: {
-    notes: [
-      {title: 'Acura', index: 0, body: 'acura is ok'},
-      {title: 'bmw', index: 1, body: 'bmw\'s are awesome!'}
-    ],
+    notes: [],
     currNote: {},
     login: false,
     token: '',
