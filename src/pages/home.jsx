@@ -12,12 +12,11 @@ import store from '../js/store';
 
 const HomePage = () => {
   const currentNote = useStore('currNote');
-  const loggedIn    = useStore('login');
+  const [body, setBody]    = useState('');
   const [date, setDate] = useState('');
+  const loggedIn    = useStore('login');
 
   const updateNote = () => {
-    console.log(document.getElementById('texteditor').firstElementChild.innerHTML);
-    var body = document.getElementById('texteditor').textContent;
     if(currentNote.title){
       currentNote.body = body;
       store.dispatch('updateNote', currentNote);
@@ -55,6 +54,7 @@ const HomePage = () => {
         id="texteditor"
         placeholder="Type here..."
         value={currentNote.body}
+        onTextEditorChange={ (value) => setBody(value) }
         mode="popover"
         >      
       </TextEditor>
