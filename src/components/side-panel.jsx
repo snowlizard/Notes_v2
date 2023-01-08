@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import myApp from '../js/firebase';
-import { getNotes } from '../js/firebase';
+import { database } from '../js/firebase';
+import { ref, onValue } from 'firebase/database';
 import store from '../js/store';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import {
@@ -33,21 +34,21 @@ const SidePanel = () => {
         if (loggedIn) {
             signOut(auth).then( () => {
                 store.dispatch('setLogin');
-                getNotes();
             });
         } else {
             signInWithPopup(auth, provider)
             .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
             const user = result.user;
+            store.dispatch('setToken', user.uid);
             store.dispatch('setLogin');
-            }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            })
+            
+            // grab notes from database
+            const myRef = ref(database, user.uid + '_notes');
+            onValue(myRef, (snapshot) => {
+                if(snapshot.val() !== null)
+                    store.dispatch('initNotes', snapshot.val())
+            },{ onlyOnce: true });
+            });
         }
     };
 
@@ -109,14 +110,15 @@ const SidePanel = () => {
                 <ListItem title="Nothing found"></ListItem>
             </List>
 
-            <List className="notes-list searchbar-found" inset>
+            <List className="notes-list searchbar-found">
                 {   
                     notes.map( note => (
-                        <ListButton
+                        <ListItem
+                            className='panel-btns'
+                            title={note.title}
                             key={note.index}
-                            onClick={ () => setCurrentNote(note.index) }>
-                            <ListItem title={note.title} />
-                        </ListButton>
+                            onClick={ () => setCurrentNote(note.index) }
+                        />
                     ))
                 }
             </List>

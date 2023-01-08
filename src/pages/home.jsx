@@ -1,5 +1,6 @@
 import React from 'react';
-import { updateDatabase } from '../js/firebase';
+import { database } from '../js/firebase';
+import { ref, set } from 'firebase/database';
 import { useState } from 'react';
 import {
   Appbar,
@@ -14,8 +15,9 @@ import store from '../js/store';
 const HomePage = () => {
   const currentNote = useStore('currNote');
   const [body, setBody]    = useState('');
-  const [date, setDate] = useState('');
-  const loggedIn    = useStore('login');
+  const [date, setDate]    = useState('');
+  const token        = useStore('token');
+  const notes        = useStore('notes');
 
   const updateNote = () => {
     if(currentNote.title){
@@ -24,7 +26,8 @@ const HomePage = () => {
       setDate(new Date().toLocaleString());
 
       // update database;
-      updateDatabase();
+      const myRef = ref(database, token + '_notes');
+      set(myRef, notes);
     }
   };
 

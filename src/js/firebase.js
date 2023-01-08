@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
-import store from '../js/store';
-import { useStore } from "framework7-react";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,23 +12,6 @@ const firebaseConfig = {
 };
 
 const myApp    = initializeApp(firebaseConfig);
-const database = getDatabase(myApp);
-
-export const updateDatabase = () => {
-    const token = useStore('token');
-    const notes = useStore('notes');
-
-    set( ref(database, token + '_notes'), notes );
-}
-
-export const getNotes = () => {
-    const getRef = ref(database, token + '_notes');
-
-    onValue(getRef, (snapshot) => {
-        if(snapshot.val !== null)
-            store.dispatch('initNotes', snapshot.val());
-
-    }, { onlyOnce: true });
-}
+export const database = getDatabase(myApp);
 
 export default myApp;
