@@ -41,6 +41,13 @@ const store = createStore({
       state.notes = state.notes.map( sNote => sNote.title === note.title ? note : sNote);
     },
 
+    deleteNote({state}, note) {
+      state.notes = state.notes.map((n) => {
+        if(n !== note)
+          return n;
+      });
+    },
+
     setCurrNote({state}, index) {
       state.currNote = state.notes[index];
     },

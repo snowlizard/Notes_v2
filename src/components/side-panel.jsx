@@ -61,6 +61,10 @@ const SidePanel = () => {
         store.dispatch('addNote', newNote);
     };
 
+    const deleteNote = (note) => {
+        // do stuff
+    }
+
     const setCurrentNote = (index) => {
         store.dispatch('setCurrNote', index);
     };
@@ -79,7 +83,7 @@ const SidePanel = () => {
                     <Button
                     className='btn-bar'
                     small raised round
-                    iconMaterial='login'
+                    iconMaterial='account_circle'
                     onClick={ signIn }/> :
                     <Button
                     className='btn-bar'
@@ -117,8 +121,14 @@ const SidePanel = () => {
                             className='panel-btns'
                             title={note.title}
                             key={note.index}
-                            onClick={ () => setCurrentNote(note.index) }
-                        />
+                            onClick={ () => setCurrentNote(note.index) }>
+                            <Button
+                                className='btn-bar'
+                                color='white'
+                                iconMaterial='delete'
+                                small raised
+                                round/>
+                        </ListItem>
                     ))
                 }
             </List>
