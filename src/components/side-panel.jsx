@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import myApp from '../js/firebase';
 import store from '../js/store';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
@@ -6,12 +7,15 @@ import {
   Appbar,
   Button,
   List,
+  ListButton,
   ListItem,
+  ListInput,
   Link,
   Panel,
   Searchbar,
   theme,
-  useStore
+  useStore,
+  Popup
 } from 'framework7-react';
 
 const auth = getAuth(myApp);
@@ -20,6 +24,9 @@ const provider = new GoogleAuthProvider();
 const SidePanel = () => {
     const loggedIn = useStore('login');
     const notes    = useStore('notes');
+    const [title, setTitle] = useState('');
+    const [body, setBody]   = useState('');
+    const [popup, setPopup] = useState(false);
 
     const signIn = () => {
         if (loggedIn) {
@@ -42,6 +49,15 @@ const SidePanel = () => {
         }
     };
 
+    const addNewNote = () => {
+        const newNote = {
+            title,
+            body,
+            index: notes.length
+        }
+        store.dispatch('addNote', newNote);
+    };
+
     const setCurrentNote = (index) => {
         store.dispatch('setCurrNote', index);
     };
@@ -53,7 +69,8 @@ const SidePanel = () => {
                     <Button
                         className='btn-bar'
                         small raised round
-                        iconMaterial='note_add_outlined_icon'/>
+                        iconMaterial='note_add_outlined_icon'
+                        popupOpen=".new-note-popup"/>
                 {
                     !loggedIn ? 
                     <Button
@@ -90,15 +107,38 @@ const SidePanel = () => {
                 <ListItem title="Nothing found"></ListItem>
             </List>
 
-            <List className="notes-list searchbar-found">
+            <List className="notes-list searchbar-found" inset>
                 {   
                     notes.map( note => (
-                        <Button text={note.title}
-                            key={note.title}
-                            onClick={ () => setCurrentNote(note.index) }/>
+                        <ListButton
+                            key={note.index}
+                            onClick={ () => setCurrentNote(note.index) }>
+                            <ListItem title={note.title} />
+                        </ListButton>
                     ))
                 }
             </List>
+
+            <Popup className='new-note-popup'
+                opened={popup}
+                onPopupClosed={ () => setPopup(false) }>
+                <div>
+                <List inlineLabels noHairlines>
+                    <ListInput
+                        type='text'
+                        placeholder='Note title. . .'
+                        onChange={ (event) => setTitle(event.target.value)}
+                        clearButton/>
+                    <ListInput
+                        type='texteditor'
+                        onChange={ (value) => setBody(value)}
+                        placeholder='Note body. . .'/>
+                    <Button
+                        text='Submit'
+                        onClick={ addNewNote }/>
+                </List>
+                </div>
+            </Popup>
         </Panel>
     );
 };
