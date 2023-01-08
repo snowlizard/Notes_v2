@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import {
   Appbar,
   Button,
@@ -7,13 +8,25 @@ import {
   useStore
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
+import store from '../js/store';
 
 const HomePage = () => {
   const currentNote = useStore('currNote');
   const loggedIn    = useStore('login');
+  const [date, setDate] = useState('');
+
+  const updateNote = () => {
+    console.log(document.getElementById('texteditor').firstElementChild.innerHTML);
+    var body = document.getElementById('texteditor').textContent;
+    if(currentNote.title){
+      currentNote.body = body;
+      store.dispatch('updateNote', currentNote);
+      setDate(new Date().toLocaleString());
+    }
+  };
 
   return (
-    <Page>
+    <Page className='app-page'>
       <Appbar>
         <div className="left">
           <Button small panelToggle="left" className="display-flex" iconF7="bars" />
@@ -23,7 +36,8 @@ const HomePage = () => {
           <Button 
             className='btn-bar'
             small raised round 
-            iconMaterial='save_alt'/>
+            iconMaterial='save_alt'
+            onClick={updateNote}/>
           <Button 
             className='btn-bar'
             small raised round 
@@ -33,12 +47,13 @@ const HomePage = () => {
 
       <SidePanel />
 
-      {
-        loggedIn ? <p>Logged in</p> :
-        <p>please login</p>
-      }
+      <div id='timestamp'>
+        <div>Last updated: {date}</div>
+      </div>
 
-      <TextEditor placeholder="Type here..."
+      <TextEditor 
+        id="texteditor"
+        placeholder="Type here..."
         value={currentNote.body}
         mode="popover"
         >      
