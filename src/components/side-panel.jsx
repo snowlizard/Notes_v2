@@ -9,7 +9,6 @@ import {
   Appbar,
   Button,
   List,
-  ListButton,
   ListItem,
   ListInput,
   Link,
@@ -17,7 +16,7 @@ import {
   Searchbar,
   theme,
   useStore,
-  Popup
+  Popup,
 } from 'framework7-react';
 
 const auth = getAuth(myApp);
@@ -122,19 +121,22 @@ const SidePanel = () => {
                             title={note.title}
                             key={note.index}
                             onClick={ () => setCurrentNote(note.index) }>
-                            <Button
-                                className='btn-bar'
-                                color='white'
-                                iconMaterial='delete'
-                                small raised
-                                onClick={ () => deleteNote(note.index) }
-                                round/>
+                            <div className='list-btn-cont'>
+                                <Button
+                                    className='btn-bar'
+                                    color='white'
+                                    iconMaterial='delete'
+                                    small raised
+                                    onClick={ () => deleteNote(note.index) }
+                                    round/>
+                            </div>
                         </ListItem>
                     ))
                 }
             </List>
-
+            
             <Popup className='new-note-popup'
+                animate={false}
                 opened={popup}
                 onPopupClosed={ () => setPopup(false) }>
                 <div>
@@ -149,6 +151,7 @@ const SidePanel = () => {
                         onChange={ (value) => setBody(value)}
                         placeholder='Note body. . .'/>
                     <Button
+                        popupClose
                         text='Submit'
                         onClick={ addNewNote }/>
                 </List>

@@ -7,20 +7,27 @@ import {
   Button,
   Page,
   TextEditor,
-  useStore
+  useStore,
+  Popover,
+  Input,
+  Block
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
 import store from '../js/store';
 
 const HomePage = () => {
   const currentNote = useStore('currNote');
+  const [title, setTitle]  = useState('');
   const [body, setBody]    = useState('');
   const [date, setDate]    = useState('');
   const token        = useStore('token');
   const notes        = useStore('notes');
 
   const updateNote = () => {
-    if(currentNote.title){
+    if(currentNote){
+      if(title !== '')
+        currentNote.title = title;
+
       currentNote.body = body;
       store.dispatch('updateNote', currentNote);
       setDate(new Date().toLocaleString());
@@ -42,6 +49,11 @@ const HomePage = () => {
           <Button 
             className='btn-bar'
             small raised round 
+            iconMaterial='mode_edit'
+            popoverOpen='.note-title'/>
+          <Button 
+            className='btn-bar'
+            small raised round 
             iconMaterial='save_alt'
             onClick={updateNote}/>
           <Button 
@@ -50,6 +62,21 @@ const HomePage = () => {
             iconMaterial='help_outline'/>
         </div>
       </Appbar>
+
+      <Popover className='note-title'
+        animate={false}>
+        <Block>
+          <Input
+            style={{'background': '#e6e4e1', 'height': '30px'}}
+            placeholder=' Title. . .' type='text' clearButton
+            onChange={ (e) => setTitle(e.target.value) }/>
+          <Button
+            popoverClose
+            style={{'marginTop': '15px', 'background':'#666666', 'color': 'white'}}
+            small raised text='Edit'
+            onClick={updateNote}/>
+        </Block>
+      </Popover>
 
       <SidePanel />
 

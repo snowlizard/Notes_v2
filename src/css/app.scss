@@ -69,6 +69,10 @@
   margin: 4px;
 }
 
+.btn-bar:hover{
+  background: #666666;
+}
+
 #timestamp{
   width: 100%;
   display: flex;
@@ -107,6 +111,10 @@
   text-align: center;
 }
 
+.list-btn-cont {
+  width: 2%;
+}
+
 .panel-btns:hover {
 	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
 	background-color:#f6f6f6;
@@ -114,4 +122,9 @@
 
 .item-content {
   border-bottom: none;
+}
+
+.note-title > div > div{
+  margin: 15px;
+  padding: 0;
 }
