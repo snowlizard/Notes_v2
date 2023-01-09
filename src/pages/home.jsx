@@ -44,7 +44,7 @@ const HomePage = () => {
         <div className="left">
           <Button small panelToggle="left" className="display-flex" iconF7="bars" />
         </div>
-        <div className='app-title'>Notes v2</div>
+        <div className='app-title'>{ currentNote.title !== undefined ? currentNote.title : 'Notes v2' }</div>
         <div className='right'>
           <Button 
             className='btn-bar'
