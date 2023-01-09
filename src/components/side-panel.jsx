@@ -61,8 +61,8 @@ const SidePanel = () => {
         store.dispatch('addNote', newNote);
     };
 
-    const deleteNote = (note) => {
-        // do stuff
+    const deleteNote = (index) => {
+        store.dispatch('deleteNote', index);
     }
 
     const setCurrentNote = (index) => {
@@ -127,6 +127,7 @@ const SidePanel = () => {
                                 color='white'
                                 iconMaterial='delete'
                                 small raised
+                                onClick={ () => deleteNote(note.index) }
                                 round/>
                         </ListItem>
                     ))

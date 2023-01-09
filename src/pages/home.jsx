@@ -60,7 +60,7 @@ const HomePage = () => {
       <TextEditor 
         id="texteditor"
         placeholder="Type here..."
-        value={currentNote.body}
+        value={ currentNote ? currentNote.body : '' }
         onTextEditorChange={ (value) => setBody(value) }
         mode="popover"
         >      
