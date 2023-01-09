@@ -128,3 +128,19 @@
   margin: 15px;
   padding: 0;
 }
+
+.help-popup {
+  height: 280px !important;
+}
+
+.help-popup > .card {
+  margin: 0;
+  height: 100%;
+}
+
+.popup-btn-help {
+  margin:  0 auto;
+  width: 50%;
+  background: #42383B;
+  color: #fff;
+}

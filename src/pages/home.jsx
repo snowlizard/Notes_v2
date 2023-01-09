@@ -5,12 +5,15 @@ import { useState } from 'react';
 import {
   Appbar,
   Button,
+  Card,
   Page,
   TextEditor,
   useStore,
+  Popup,
   Popover,
   Input,
-  Block
+  Block,
+  Icon
 } from 'framework7-react';
 import SidePanel from '../components/side-panel';
 import store from '../js/store';
@@ -46,19 +49,26 @@ const HomePage = () => {
         </div>
         <div className='app-title'>{ currentNote.title !== undefined ? currentNote.title : 'Notes v2' }</div>
         <div className='right'>
+          {
+            currentNote.title !== undefined ?
+            <div className='right'>
+              <Button 
+                className='btn-bar'
+                small raised round 
+                iconMaterial='mode_edit'
+                popoverOpen='.note-title'/>
+              <Button 
+                className='btn-bar'
+                small raised round 
+                iconMaterial='save_alt'
+                onClick={updateNote}/>
+            </div>
+            : undefined
+          }
           <Button 
             className='btn-bar'
-            small raised round 
-            iconMaterial='mode_edit'
-            popoverOpen='.note-title'/>
-          <Button 
-            className='btn-bar'
-            small raised round 
-            iconMaterial='save_alt'
-            onClick={updateNote}/>
-          <Button 
-            className='btn-bar'
-            small raised round 
+            small raised round
+            popoverOpen='.help-popup'
             iconMaterial='help_outline'/>
         </div>
       </Appbar>
@@ -83,6 +93,43 @@ const HomePage = () => {
       <div id='timestamp'>
         <div>Last updated: {date}</div>
       </div>
+
+      <Popup className='help-popup'>
+          <Card title='Notes v2 help'>
+            <ul style={{'listStyle': 'none'}}>
+              <li>
+                Click on <Icon material='account_circle'/>
+                to sign in to your google account.
+              </li>
+              <li>
+                Create a new note by clicking on
+                <Icon material='note_add_outlined_icon' />
+              </li>
+              <li>
+                To edit the title of the current note use 
+                <Icon material='mode_edit' />
+              </li>
+              <li>
+                Save the note by clicking on the 
+                <Icon material='save_alt' /> icon
+              </li>
+              <li>
+                <Icon material='delete' /> deletes the
+                note next to it.
+              </li>
+              <li>
+                You can search notes by title by using the
+                search icon <Icon material='search' />
+              </li>
+            </ul>
+            <Button 
+              text='Close'
+              raised small
+              popupClose
+              className='popup-btn-help'
+            />
+          </Card>
+      </Popup>
 
       <TextEditor 
         id="texteditor"
