@@ -33,6 +33,8 @@ const SidePanel = () => {
         if (loggedIn) {
             signOut(auth).then( () => {
                 store.dispatch('setLogin');
+                store.dispatch('initNotes', []);
+                store.dispatch('setCurrNote', {});
             });
         } else {
             signInWithPopup(auth, provider)
